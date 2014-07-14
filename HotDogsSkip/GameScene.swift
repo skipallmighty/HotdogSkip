@@ -15,9 +15,9 @@ class GameScene: SKScene {
     
     let scoreBoard = SKLabelNode(fontNamed: "Courier")
     
-    var people  = Person[]()
-    var foods = Food[]()
-    
+    var people  = [Person]()//Person put inside brackets
+    var foods = [Food]()//Food put inside brackets
+
     var hotdog:Hotdog?
     
     var timer = NSTimer()
@@ -97,20 +97,27 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        for touch: AnyObject in touches {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    {
+        for touch: AnyObject in touches
+        {
             let location = touch.locationInNode(self)
             println(location)
             var sprite = self.nodeAtPoint(location)
-            if let spriteName = sprite.name {
-                if spriteName.hasPrefix("ingredient_") {
+            if let spriteName = sprite.name
+            {
+                if spriteName.hasPrefix("ingredient_")
+                {
                     var splitStringBy_ = sprite.name.componentsSeparatedByString("_")
                     var foodName = splitStringBy_[1]
                     self.hotdog!.addFoodLayer(Food.getFoodTypes()[find(Food.getFoods(), foodName)!])
                 }
-            } else {
-                if sprite.parent.name == "hotdogContainer" {
-                    hotdogDragging = true
+                else//End brace that was before the else was moved down to correct place
+                {
+                    if sprite.parent.name == "hotdogContainer"
+                    {
+                        hotdogDragging = true
+                    }
                 }
             }
             return
@@ -118,12 +125,15 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        let touch:AnyObject! = touches.anyObject()
-        let positionOnScene = touch.locationInNode(self)
-        let previousPosition = touch.previousLocationInNode(self)
-        let translation = CGPointMake(positionOnScene.x - previousPosition.x, positionOnScene.y - previousPosition.y)
-        var position = hotDogContainer.position
-        hotDogContainer.position = CGPointMake(position.x + translation.x, position.y + translation.y)
+        if (hotdogDragging == true) //This test was added
+        {
+            let touch:AnyObject! = touches.anyObject()
+            let positionOnScene = touch.locationInNode(self)
+            let previousPosition = touch.previousLocationInNode(self)
+            let translation = CGPointMake(positionOnScene.x - previousPosition.x, positionOnScene.y - previousPosition.y)
+            var position = hotDogContainer.position
+            hotDogContainer.position = CGPointMake(position.x + translation.x, position.y + translation.y)
+        }
     }
     
     func getPersonForSprite(personForSprite:SKSpriteNode) -> Person? {
