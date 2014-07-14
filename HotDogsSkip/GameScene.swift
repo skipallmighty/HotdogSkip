@@ -108,8 +108,7 @@ class GameScene: SKScene {
                     var foodName = splitStringBy_[1]
                     self.hotdog!.addFoodLayer(Food.getFoodTypes()[find(Food.getFoods(), foodName)!])
                 }
-                else
-                {
+                else {
                     if sprite.parent.name == "hotdogContainer" {
                         hotdogDragging = true
                     }
@@ -120,7 +119,7 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        if (hotdogDragging == true) || (1==2) {
+        if (hotdogDragging == true) {
             let touch:AnyObject! = touches.anyObject()
             let positionOnScene = touch.locationInNode(self)
             let previousPosition = touch.previousLocationInNode(self)
