@@ -15,9 +15,9 @@ class GameScene: SKScene {
     
     let scoreBoard = SKLabelNode(fontNamed: "Courier")
     
-    var people  = [Person]()//Person put inside brackets
-    var foods = [Food]()//Food put inside brackets
-
+    var people  = [Person]()
+    var foods = [Food]()
+    
     var hotdog:Hotdog?
     
     var timer = NSTimer()
@@ -97,25 +97,20 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
-    {
-        for touch: AnyObject in touches
-        {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        for touch: AnyObject in touches{
             let location = touch.locationInNode(self)
             println(location)
             var sprite = self.nodeAtPoint(location)
-            if let spriteName = sprite.name
-            {
-                if spriteName.hasPrefix("ingredient_")
-                {
+            if let spriteName = sprite.name{
+                if spriteName.hasPrefix("ingredient_") {
                     var splitStringBy_ = sprite.name.componentsSeparatedByString("_")
                     var foodName = splitStringBy_[1]
                     self.hotdog!.addFoodLayer(Food.getFoodTypes()[find(Food.getFoods(), foodName)!])
                 }
-                else//End brace that was before the else was moved down to correct place
+                else
                 {
-                    if sprite.parent.name == "hotdogContainer"
-                    {
+                    if sprite.parent.name == "hotdogContainer" {
                         hotdogDragging = true
                     }
                 }
@@ -125,8 +120,7 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        if (hotdogDragging == true) //This test was added
-        {
+        if (hotdogDragging == true) || (1==2) {
             let touch:AnyObject! = touches.anyObject()
             let positionOnScene = touch.locationInNode(self)
             let previousPosition = touch.previousLocationInNode(self)
@@ -196,7 +190,7 @@ class GameScene: SKScene {
         formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         scoreBoard.text = formatter.stringFromNumber(score)
     }
-   
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }
