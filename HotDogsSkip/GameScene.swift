@@ -15,8 +15,8 @@ class GameScene: SKScene {
     
     let scoreBoard = SKLabelNode(fontNamed: "Courier")
     
-    var people  = Person[]()
-    var foods = Food[]()
+    var people  = [Person]()
+    var foods = [Food]()
     
     var hotdog:Hotdog?
     
@@ -98,19 +98,20 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        for touch: AnyObject in touches {
+        for touch: AnyObject in touches{
             let location = touch.locationInNode(self)
             println(location)
             var sprite = self.nodeAtPoint(location)
-            if let spriteName = sprite.name {
+            if let spriteName = sprite.name{
                 if spriteName.hasPrefix("ingredient_") {
                     var splitStringBy_ = sprite.name.componentsSeparatedByString("_")
                     var foodName = splitStringBy_[1]
                     self.hotdog!.addFoodLayer(Food.getFoodTypes()[find(Food.getFoods(), foodName)!])
                 }
-            } else {
-                if sprite.parent.name == "hotdogContainer" {
-                    hotdogDragging = true
+                else {
+                    if sprite.parent.name == "hotdogContainer" {
+                        hotdogDragging = true
+                    }
                 }
             }
             return
@@ -118,12 +119,14 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        let touch:AnyObject! = touches.anyObject()
-        let positionOnScene = touch.locationInNode(self)
-        let previousPosition = touch.previousLocationInNode(self)
-        let translation = CGPointMake(positionOnScene.x - previousPosition.x, positionOnScene.y - previousPosition.y)
-        var position = hotDogContainer.position
-        hotDogContainer.position = CGPointMake(position.x + translation.x, position.y + translation.y)
+        if (hotdogDragging == true) {
+            let touch:AnyObject! = touches.anyObject()
+            let positionOnScene = touch.locationInNode(self)
+            let previousPosition = touch.previousLocationInNode(self)
+            let translation = CGPointMake(positionOnScene.x - previousPosition.x, positionOnScene.y - previousPosition.y)
+            var position = hotDogContainer.position
+            hotDogContainer.position = CGPointMake(position.x + translation.x, position.y + translation.y)
+        }
     }
     
     func getPersonForSprite(personForSprite:SKSpriteNode) -> Person? {
@@ -186,7 +189,7 @@ class GameScene: SKScene {
         formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         scoreBoard.text = formatter.stringFromNumber(score)
     }
-   
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }

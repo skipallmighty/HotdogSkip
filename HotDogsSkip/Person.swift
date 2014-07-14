@@ -55,7 +55,7 @@ class Person:Printable {
     }
     
     func setAngerFrames() {
-        for i in 0..self.angerAtlas.textureNames.count {
+        for i in 0..<self.angerAtlas.textureNames.count {
             angerAtlasFrames.append(angerAtlas.textureNamed("anger_\(i)"))
         }
     }
