@@ -116,7 +116,7 @@ class Person:Printable {
         self.angerSprite = SKSpriteNode(texture: angerAtlasFrames[0])
     }
     
-    func setTextForToolTip() {
+        func setTextForToolTip() {
         for toolTip in toolTips {
             var thisToolTip = self.toolTip.childNodeWithName(toolTip) as SKLabelNode
             thisToolTip.text = ""
@@ -124,9 +124,15 @@ class Person:Printable {
         
         for (index, item) in enumerate(self.currentOrder.items) {
             var currentToolTipLabel = self.toolTip.childNodeWithName(self.toolTips[index]) as SKLabelNode
-            currentToolTipLabel.text = "\(self.currentOrder.items[index].quantity) \(self.currentOrder.items[index].foodType.description)s"
+            if (self.currentOrder.items[index].quantity>0) {
+                currentToolTipLabel.text = "\(self.currentOrder.items[index].quantity) \(self.currentOrder.items[index].foodType.description)s"
+            } else {
+                currentToolTipLabel.text = "no \(self.currentOrder.items[index].foodType.description)s"
+            }
+            
         }
     }
+
     
     init(personType:PersonType, sprite:SKSpriteNode) {
         self.personType = personType
