@@ -19,18 +19,17 @@ class Order:Printable {
     func createOrder() {
         items = []
         var numberOfFoods = UInt32(Food.getFoods().count)
-        var numberOfItems = Int(1 + arc4random_uniform(numberOfFoods - 1))
+        var numberOfItems = 4  //was = Int(1 + arc4random_uniform(numberOfFoods - 1))
         var hotdogAndBunCount = Int(1 + arc4random_uniform(UInt32(5)))
         var i = 0
         for i in 0...numberOfItems {
             if Food.getFoodTypes()[i] == FoodType.Hotdog || Food.getFoodTypes()[i] == FoodType.Bun {
                 items.append(OrderItem(foodType: Food.getFoodTypes()[i], quantity: hotdogAndBunCount))
             } else {
-                items.append(OrderItem(foodType: Food.getFoodTypes()[i], quantity: Int(1 + arc4random_uniform(UInt32(5)))))
+                items.append(OrderItem(foodType: Food.getFoodTypes()[i], quantity: Int(arc4random_uniform(UInt32(6)))))//must be able to be 0
             }
         }
     }
-    
 }
 
 class OrderItem:Printable{
