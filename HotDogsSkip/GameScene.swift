@@ -109,14 +109,17 @@ class GameScene: SKScene {
                     self.hotdog!.addFoodLayer(Food.getFoodTypes()[find(Food.getFoods(), foodName)!])
                 }
                 else {
+                    if (!spriteName.hasPrefix("person_")) {
                     if sprite.parent.name == "hotdogContainer" {
                         hotdogDragging = true
+                    }
                     }
                 }
             }
             return
         }
     }
+
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
         if (hotdogDragging == true) {
