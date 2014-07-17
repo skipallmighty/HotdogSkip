@@ -120,7 +120,6 @@ class GameScene: SKScene {
         }
     }
 
-    
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
         if (hotdogDragging == true) {
             let touch:AnyObject! = touches.anyObject()
